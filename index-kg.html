@@ -811,10 +811,30 @@
         if (link.href.includes('index') || link.href.includes('index-kg')) {
           saveMusicPosition();
         } else if (link.href.includes('2gis') || link.href.includes('map')) {
-          // Сохраняем позицию при переходе на карту
+          // Сохраняем позицию при переходе на карту (открывается в новой вкладке)
           saveMusicPosition();
+          // Помечаем, что это переход на карту
+          sessionStorage.setItem('wentToMap', 'true');
         }
       });
+    });
+    
+    // Восстанавливаем музыку при возврате фокуса на вкладку
+    window.addEventListener('focus', function() {
+      const wentToMap = sessionStorage.getItem('wentToMap');
+      if (wentToMap === 'true') {
+        sessionStorage.removeItem('wentToMap');
+        const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+        const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+        if (savedTime && !Number.isNaN(parseFloat(savedTime)) && wasPlaying) {
+          bgMusic.currentTime = parseFloat(savedTime);
+          if (!isMusicPlaying) {
+            setTimeout(() => {
+              playMusic();
+            }, 100);
+          }
+        }
+      }
     });
     
     // При уходе со страницы (закрытие вкладки) останавливаем музыку
@@ -825,22 +845,24 @@
       }
     });
     
-    // При скрытии вкладки сохраняем позицию, но не останавливаем музыку
-    // (чтобы при возврате с карты музыка продолжалась)
+    // При скрытии вкладки сохраняем позицию
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         saveMusicPosition();
-        // Не паузим музыку, чтобы она продолжалась при возврате
       } else {
-        // При возврате на вкладку восстанавливаем позицию и продолжаем
-        const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
-        const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
-        if (savedTime && !Number.isNaN(parseFloat(savedTime)) && wasPlaying) {
-          bgMusic.currentTime = parseFloat(savedTime);
-          if (!isMusicPlaying) {
-            setTimeout(() => {
-              playMusic();
-            }, 100);
+        // При возврате на вкладку проверяем, был ли переход на карту
+        const wentToMap = sessionStorage.getItem('wentToMap');
+        if (wentToMap === 'true') {
+          sessionStorage.removeItem('wentToMap');
+          const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+          const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+          if (savedTime && !Number.isNaN(parseFloat(savedTime)) && wasPlaying) {
+            bgMusic.currentTime = parseFloat(savedTime);
+            if (!isMusicPlaying) {
+              setTimeout(() => {
+                playMusic();
+              }, 100);
+            }
           }
         }
       }
