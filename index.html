@@ -410,66 +410,6 @@
       transform: scale(1.12) rotate(0deg);
       box-shadow: 0 12px 32px rgba(0,0,0,0.18);
     }
-    /* Эффект для детских фото (glow + border + подъём) */
-    .polaroid.child-effect {
-      border: 3px solid #ffb347;
-      box-shadow: 0 0 24px 0 #ffe0b2, 0 8px 32px rgba(0,0,0,0.13);
-      border-radius: 24px;
-      transform: translateY(-12px) scale(1.04) rotate(0deg);
-      transition: border 0.4s, box-shadow 0.6s, border-radius 0.4s, transform 0.6s cubic-bezier(.4,0,.2,1);
-    }
-    /* Детские фото в стиле полароид */
-    .childhood-photos {
-      margin: 140px 0 0 0;
-      text-align: center;
-    }
-    .childhood-title {
-      font-size: 1.2rem;
-      margin-bottom: 12px;
-    }
-    .childhood-polaroids {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-    /* Убираю .polaroid рамку и делаю детские фото как мини-фото */
-    .childhood-polaroids img {
-      width: 100%;
-      max-width: 170px;
-      max-height: 170px;
-      aspect-ratio: 1/1;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-      background: #e0e0e0;
-      margin-bottom: 0;
-      padding: 0;
-      transition: box-shadow 0.3s;
-    }
-    @media (max-width: 900px) {
-      .childhood-polaroids img {
-        max-width: 140px;
-        max-height: 140px;
-      }
-      .childhood-photos {
-        margin: 90px 0 0 0;
-      }
-    }
-    .polaroid {
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      width: auto !important;
-      border-radius: 0 !important;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 0 !important;
-      position: static !important;
-      transition: none !important;
-    }
     /* Модальное окно для увеличенного фото */
     .photo-modal-overlay {
       display: none;
@@ -677,12 +617,92 @@
         border-radius: 12px;
       }
     }
+
+    /* Переключатель языка */
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+      display: inline-flex;
+      gap: 0;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      padding: 2px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+      font-size: 0.72rem;
+      border: 1px solid rgba(174,184,166,0.5);
+    }
+    .lang-switcher button {
+      border: none;
+      background: transparent;
+      border-radius: 999px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #555;
+      min-width: 58px;
+    }
+    .lang-switcher button.active {
+      background: #aeb8a6;
+      color: #fff;
+    }
+
+    /* Тост для результата теста */
+    .quiz-toast {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1100;
+    }
+    .quiz-toast.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .quiz-toast-content {
+      max-width: 80%;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      text-align: center;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+    }
+
+    @media (max-width: 480px) {
+      .lang-switcher {
+        top: 8px;
+        right: 6px;
+        padding: 2px;
+        font-size: 0.68rem;
+      }
+      .lang-switcher button {
+        padding: 2px 7px;
+        font-size: 0.68rem;
+        min-width: 54px;
+      }
+      .quiz-toast-content {
+        max-width: 90%;
+        font-size: 0.95rem;
+      }
+    }
   </style>
 </head>
 <body>
+  <div class="lang-switcher">
+    <button type="button" class="active">Русский</button>
+    <a href="index-kg.html" style="border-radius:999px; padding:3px 8px; font-size:0.72rem; font-weight:600; color:#555; text-decoration:none; display:inline-block; min-width:58px; text-align:center;">Кыргызча</a>
+  </div>
   <!-- Добавляем аудио элемент -->
   <audio id="bgMusic" loop muted>
-    <source src="music33.mp3" type="audio/mpeg">
+    <source src="Jax (02.14) - Озгочо кун.mp3" type="audio/mpeg">
   </audio>
   <div class="audio-player" id="audioPlayer" title="Включить/выключить музыку">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -692,93 +712,97 @@
   <div class="main-wrapper">
     <!-- Главное фото hero -->
     <div class="main-photo-area reveal-on-scroll">
-      <img class="main-photo reveal-on-scroll" src="timafon.jpg" alt="Главное фото">
+      <img class="main-photo reveal-on-scroll" src="ariet2.JPG" alt="Главное фото">
       <div class="main-names reveal-on-scroll" style="color:#fff !important; text-shadow:0 4px 18px #444, 0 1px 0 #888;">
-        Темирлан<br>& Мээрим
+        Ариет<br>& Багайым
       </div>
     </div>
     <!-- Левая карточка (контент ниже фото) -->
     <div class="vertical-photo-block">
       <div class="info-block reveal-on-scroll">
-        <div class="info-title title reveal-on-scroll">Дорогие близкие<br>и родные!</div>
-        <div class="info-text accent reveal-on-scroll">
-          Мы с радостью приглашаем вас на нашу свадьбу!<br>
-          Пусть этот день станет незабываемым — вместе с вами.<br>
-          <span style="font-size:1.2em;">&#10048;&#10048;</span>
+        <div
+          class="info-title title reveal-on-scroll"
+          data-i18n="introTitle"
+          data-ru="Дорогие близкие<br>и родные!"
+          data-kg="Урматтуу туугандар<br>жана жакындар!"
+        >
+          Дорогие близкие<br>и родные!
         </div>
-        <div class="mini-photo-section">
-          <div class="mini-photo-instruction accent" style="text-align:center; margin-bottom:6px; font-size:1.04em;">Нажми на фото</div>
-          <div class="mini-photo-grid">
-            <div class="mini-photo-wrapper">
-              <img src="tima1.jpeg" class="mini-photo reveal-on-scroll zoom-on-click" alt="Фото 1" data-desc="Это мы впервые на свадьбе друзей">
-              <div class="mini-photo-desc accent"></div>
-            </div>
-            <div class="mini-photo-wrapper">
-              <img src="tima2.JPG" class="mini-photo reveal-on-scroll zoom-on-click" alt="Фото 2" data-desc="Наши ночные катания по городу">
-              <div class="mini-photo-desc accent"></div>
-            </div>
-            <div class="mini-photo-wrapper">
-              <img src="tima3.PNG" class="mini-photo reveal-on-scroll zoom-on-click" alt="Фото 3" data-desc="Место где я попросил её руки и сердца">
-              <div class="mini-photo-desc accent"></div>
-            </div>
-            <div class="mini-photo-wrapper">
-              <img src="tima4.JPG" class="mini-photo reveal-on-scroll zoom-on-click" alt="Фото 4" data-desc="День когда мы начали встречаться">
-              <div class="mini-photo-desc accent"></div>
-            </div>
-          </div>
+        <div
+          class="info-text accent reveal-on-scroll"
+          data-i18n="introText"
+          data-ru="Один день в этом году будет для нас особенным, и мы хотим провести его в кругу близких и друзей. С большим удовольствием приглашаем вас на знаменательный праздник — нашу свадьбу!<br>"
+          data-kg="Бул жылы биз үчүн өзгөчө бир күн болот жана биз аны үй-бүлөбүз жана эң жакындарыбыз менен өткөргүбүз келет. Сиздерди ушул маанилүү учурга – биздин үйлөнүү тоюбузга чакырганыбызга кубанычтабыз!<br>"
+        >
+          Один день в этом году будет для нас особенным, и мы хотим провести его в кругу близких и друзей. С большим удовольствием приглашаем вас на знаменательный праздник — нашу свадьбу!<br>
+          <span style="font-size:1.2em;">&#10048;&#10048;</span>
         </div>
         <!-- Таймер -->
         <div class="countdown-block reveal-on-scroll">
-          <div class="title" style="margin-top:24px;">До свадьбы осталось:</div>
+          <div
+            class="title"
+            style="margin-top:24px;"
+            data-i18n="timerTitle"
+            data-ru="До свадьбы осталось:"
+            data-kg="Тойго калган убакыт:"
+          >До свадьбы осталось:</div>
           <div id="countdown" class="horizontal-timer"></div>
         </div>
         <div class="calendar-block reveal-on-scroll">
-          <div class="title" style="margin-top:24px;">Август 2025</div>
+          <div
+            class="title"
+            style="margin-top:24px;"
+            data-i18n="calendarTitle"
+            data-ru="Декабрь 2025"
+            data-kg="Декабрь 2025"
+          >Декабрь 2025</div>
           <table class="calendar-table">
             <tr><th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th></tr>
-            <tr><td></td><td></td><td></td><td></td><td>1</td><td>2</td><td>3</td></tr>
-            <tr><td>4</td><td>5</td>
+            <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+            <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+            <tr><td>15</td><td>16</td>
               <td class="calendar-pulse">
                 <span class="heart-pulse">
                   <svg viewBox="0 0 24 24" width="28" height="28" style="vertical-align:middle;">
                     <path d="M12 21s-6.7-5.2-9.2-8.2C-1.2 8.2 2.4 3.5 7.1 5.1c1.7.6 2.9 2.1 2.9 2.1s1.2-1.5 2.9-2.1c4.7-1.6 8.3 3.1 4.3 7.7C18.7 15.8 12 21 12 21z" fill="#c35009"/>
                   </svg>
                 </span>
-                <span class="calendar-pulse-number">6</span>
+                <span class="calendar-pulse-number">17</span>
               </td>
-              <td>7</td><td>8</td><td>9</td><td>10</td></tr>
-            <tr><td>11</td><td>12</td><td>13</td><td>14</td><td>15</td><td>16</td><td>17</td></tr>
-            <tr><td>18</td><td>19</td><td>20</td><td>21</td><td>22</td><td>23</td><td>24</td></tr>
-            <tr><td>25</td><td>26</td><td>27</td><td>28</td><td>29</td><td>30</td><td>31</td></tr>
+              <td>18</td><td>19</td><td>20</td><td>21</td></tr>
+            <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+            <tr><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td></tr>
           </table>
-        </div>
-        <div class="childhood-photos reveal-on-scroll">
-          <div class="childhood-title accent">Наши детские фото</div>
-          <div class="childhood-polaroids">
-            <div class="polaroid zoom-on-click">
-              <img src="bala1.JPG" alt="Темпося">
-              <div class="mini-photo-instruction accent" style="text-align:center; margin-bottom:6px; font-size:1.04em;">Нажми на фото</div>
-            </div>
-            <div class="polaroid zoom-on-click">
-              <img src="bala2.JPG" alt="Мекусь">
-              <div class="mini-photo-instruction accent" style="text-align:center; margin-bottom:6px; font-size:1.04em;">Нажми на фото</div>
-            </div>
-          </div>
         </div>
       </div>
     <!-- Правая карточка -->
     <div class="card reveal-on-scroll">
-      <div class="section-title title reveal-on-scroll" style="margin-bottom:8px;">Банкет</div>
+      <div
+        class="section-title title reveal-on-scroll"
+        style="margin-bottom:8px;"
+        data-i18n="banquetTitle"
+        data-ru="Банкет"
+        data-kg="Той"
+      >Банкет</div>
       <div class="reveal-on-scroll" style="text-align:center; margin-bottom:8px;">
-        06.08 Август | 17:00<br>
-        "Ресторан Бак Сарай 
-"<br>
-        Ул : Энгельса улица, 95
+        17.12.2025 | 17:00<br>
+        <span data-i18n="banquetPlace" data-ru="Ресторан Ayar" data-kg="Ayar рестораны">Ресторан Ayar</span><br>
+        <span data-i18n="banquetAddress" data-ru="Ул. Фрунзе, 133" data-kg="Фрунзе көчөсү, 133">Ул. Фрунзе, 133</span>
       </div>
-      <a class="button reveal-on-scroll" href="https://2gis.kg/bishkek/geo/70000001063952247/73.893094,42.830217" target="_blank">посмотреть на карте</a>
-      <div class="section-title title reveal-on-scroll" style="margin-top:24px;">Дресс-код</div>
+      <a class="button reveal-on-scroll" href="https://2gis.kg/bishkek/firm/70000001090743355?m=74.500478%2C42.875671%2F16" target="_blank" data-i18n="mapBtn" data-ru="посмотреть на карте" data-kg="картаны ачуу">посмотреть на карте</a>
+      <div
+        class="section-title title reveal-on-scroll"
+        style="margin-top:24px;"
+        data-i18n="dresscodeTitle"
+        data-ru="Дресс-код"
+        data-kg="Кийим коду"
+      >Дресс-код</div>
       <div class="reveal-on-scroll" style="text-align:center; margin-bottom:8px;">
-        Мы будем рады, если ваши наряды поддержат цветовую гамму вечера.
+        <span
+          data-i18n="dresscodeText"
+          data-ru="Мы будем рады, если ваши наряды поддержат цветовую гамму вечера."
+          data-kg="Кечки маанайдын түс гаммасына жакын кийимдерди тандасаңыздар, абдан кубанабыз."
+        >Мы будем рады, если ваши наряды поддержат цветовую гамму вечера.</span>
       </div>
     </div>
      <!-- Дресс-код -->
@@ -796,26 +820,86 @@
           <div class="dresscode-item"><img src="tkan5.jpeg" alt="Для мужчин 3"></div>
         </div>
       </div>
-      <div class="section-title title reveal-on-scroll" style="margin-top:24px;">Детали</div>
-      <div class="info-text accent reveal-on-scroll details-block" style="text-align:center; margin-bottom:22px; font-size:1.08rem; line-height:1.5; background:none; box-shadow:none; padding:0; border-radius:0; display:block;">
-        Мы старались сделать праздник незабываемым, поэтому будем рады, если вы подтвердите свое присутствие на торжестве до 06.08.2025
+      <div
+        class="section-title title reveal-on-scroll"
+        style="margin-top:24px;"
+        data-i18n="detailsTitle"
+        data-ru="Детали"
+        data-kg="Кошумча маалымат"
+      >Детали</div>
+      <div
+        class="info-text accent reveal-on-scroll details-block"
+        style="text-align:center; margin-bottom:16px; font-size:1.08rem; line-height:1.5; background:none; box-shadow:none; padding:0; border-radius:0; display:block;"
+        data-i18n="detailsText"
+        data-ru="Мы старались сделать праздник незабываемым, поэтому будем рады, если вы подтвердите своё присутствие на торжестве до 17.12.2025."
+        data-kg="Бул күн эсинде кала тургандай болушу үчүн көп даярдандык, ошондуктан 17.12.2025 чейин келе аларыңыздарды билдирип койсоңуздар абдан кубанабыз."
+      >
+        Мы старались сделать праздник незабываемым, поэтому будем рады, если вы подтвердите своё присутствие на торжестве до 17.12.2025.
+      </div>
+
+      <!-- Мини‑тест для гостей -->
+      <div class="block-bg reveal-on-scroll" style="text-align:left; max-width:300px; margin:0 auto 18px auto; padding:12px 10px;">
+        <div
+          class="section-title title"
+          style="margin-top:0; margin-bottom:6px; font-size:0.98rem;"
+          data-i18n="quizTitle"
+          data-ru="Вы знаете, как мы познакомились?"
+          data-kg="Каяктан таанышканыбызды билесизби?"
+        >Вы знаете, как мы познакомились?</div>
+        <form id="quizForm" style="font-size:0.9rem; line-height:1.4;">
+          <label style="display:block; margin-bottom:4px;">
+            <input type="radio" name="howMeet" value="1">
+            <span
+              data-i18n="quizOpt1"
+              data-ru="На той: Ариет зажёг своими не в тему танцами, Бегай понравилось 😂"
+              data-kg="Тойдон: Ариет темадан тышкары бийлеп, Бегайга жағып калган 😂"
+            >На той: Ариет зажёг своими не в тему танцами, Бегай понравилось 😂</span>
+          </label>
+          <label style="display:block; margin-bottom:4px;">
+            <input type="radio" name="howMeet" value="2">
+            <span
+              data-i18n="quizOpt2"
+              data-ru="В парке Ынтымак: Бегай пела, Ариет влюбился 😂"
+              data-kg="Ынтымак паркында: Бегай ырдап, Ариет жактырып калган 😂"
+            >В парке Ынтымак: Бегай пела, Ариет влюбился 😂</span>
+          </label>
+          <label style="display:block; margin-bottom:4px;">
+            <input type="radio" name="howMeet" value="3">
+            <span
+              data-i18n="quizOpt3"
+              data-ru="На программе «Жоолуктук» 😂"
+              data-kg="Биз «Жоолутук» программасынан (Бегай талапкер болсчу) 😂"
+            >На программе «Жоолуктук» 😂</span>
+          </label>
+          <label style="display:block; margin-bottom:6px;">
+            <input type="radio" name="howMeet" value="4">
+            <span
+              data-i18n="quizOpt4"
+              data-ru="Когда вместе занимались благотворительностью и помогали детям и нуждающимся"
+              data-kg="Кайрымдуулук иштерин кылып, балдарга жана муктаждарга жардам берип жүргөндө таанышканбыз"
+            >Когда вместе занимались благотворительностью и помогали детям и нуждающимся</span>
+          </label>
+          <button type="button" class="button" id="quizCheck" style="margin-top:4px; padding:6px 14px; font-size:0.9rem;" data-i18n="quizCheckBtn" data-ru="Проверить" data-kg="Текшерүү">Проверить</button>
+          <div id="quizResult" style="margin-top:6px; font-weight:600; font-size:0.9rem;"></div>
+        </form>
       </div>
       <!-- Форма пожеланий -->
       <form class="reveal-on-scroll" id="wishForm" style="width:100%; max-width:260px; margin:0 auto;">
-        <input type="text" name="name" placeholder="Имя" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-        <input type="tel" name="phone" placeholder="Телефон" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-        <div style="margin-bottom:8px;">Вы придете?<br>
-          <label><input type="radio" name="attend" value="Да"> Да</label>
-          <label style="margin-left:12px;"><input type="radio" name="attend" value="Нет"> Нет</label>
+        <input type="text" name="name" data-i18n-placeholder="name" placeholder="Имя" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+        <input type="tel" name="phone" data-i18n-placeholder="phone" placeholder="Телефон" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+        <div style="margin-bottom:8px;">
+          <span data-i18n="attendQuestion" data-ru="Вы придете?" data-kg="Келе аласызбы?">Вы придете?</span><br>
+          <label><input type="radio" name="attend" value="Да"> <span data-i18n="yes" data-ru="Да" data-kg="Ооба">Да</span></label>
+          <label style="margin-left:12px;"><input type="radio" name="attend" value="Нет"> <span data-i18n="no" data-ru="Нет" data-kg="Жок">Нет</span></label>
         </div>
-        <input type="text" name="wishes" placeholder="ваши пожелания" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
-        <button class="button" type="submit">Отправить</button>
-        <div id="wishSuccess" style="display:none;color:#2e7d32;font-weight:600;margin-top:10px;">Спасибо! Ваша заявка отправлена.</div>
-        <div id="wishError" style="display:none;color:#c35009;font-weight:600;margin-top:10px;">Ошибка отправки. Попробуйте позже.</div>
+        <input type="text" name="wishes" data-i18n-placeholder="wishes" placeholder="ваши пожелания" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+        <button class="button" type="submit" data-i18n="submitBtn" data-ru="Отправить" data-kg="Жиберүү">Отправить</button>
+        <div id="wishSuccess" style="display:none;color:#2e7d32;font-weight:600;margin-top:10px;" data-i18n="successMsg" data-ru="Спасибо! Ваша заявка отправлена." data-kg="Рахмат! Сиздин билдирүүңүз жөнөтүлдү.">Спасибо! Ваша заявка отправлена.</div>
+        <div id="wishError" style="display:none;color:#c35009;font-weight:600;margin-top:10px;" data-i18n="errorMsg" data-ru="Ошибка отправки. Попробуйте позже." data-kg="Жөнөтүүдө ката кетти. Кийинчерээк кайра аракет кылыңыз.">Ошибка отправки. Попробуйте позже.</div>
       </form>
-      <div class="reveal-on-scroll waiting-block" style="text-align:center; font-size:1.15rem; color:#7a6a5a; margin:32px 0 24px 0; font-family:'Dancing Script',cursive; font-weight:600;">
-        Ждем вас с нетерпением!<br>
-        <span style="font-size:1.05rem; font-family:'Dancing Script',cursive; font-style:italic; color:#7a6a5a;">Темирлан и Мээрим</span>
+      <div class="reveal-on-scroll waiting-block" style="text-align:center; font-size:1.3rem; color:#7a6a5a; margin:32px 0 24px 0; font-family:'Dancing Script',cursive; font-weight:600;">
+        <span data-i18n="waitingText" data-ru="Ждём вас с нетерпением!" data-kg="Силерди чыдамсыздык менен күтүп жатабыз!">Ждём вас с нетерпением!</span><br>
+        <span style="font-size:1.15rem; font-family:'Dancing Script',cursive; font-style:italic; color:#7a6a5a;">Ариет и Багайым</span>
       </div>
       <div style="height: 80px;"></div>
     </div>
@@ -826,10 +910,13 @@
       <div class="photo-modal-desc accent" id="photoModalDesc"></div>
     </div>
   </div>
+  <div class="quiz-toast" id="quizToast">
+    <div class="quiz-toast-content" id="quizToastContent"></div>
+  </div>
   <script>
-    // Таймер-отсчёт до 14 августа 2025
+    // Таймер-отсчёт до 17 декабря 2025
     function updateCountdown() {
-      const target = new Date('2025-08-06T17:00:00');
+      const target = new Date('2025-12-17T17:00:00');
       const now = new Date();
       let diff = target - now;
       if (diff < 0) diff = 0;
@@ -872,31 +959,6 @@
         modal.classList.remove('active');
       }, 450); // чуть меньше transition, чтобы не было задержки
     }
-    document.querySelectorAll('.mini-photo.zoom-on-click').forEach(function(img) {
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var modal = document.getElementById('photoModal');
-        var modalImg = document.getElementById('photoModalImg');
-        var modalDesc = document.getElementById('photoModalDesc');
-        modalImg.src = img.src;
-        modalDesc.textContent = img.getAttribute('data-desc') || '';
-        modal.classList.add('active');
-        // Сброс анимации
-        modalImg.style.opacity = 0;
-        modalImg.style.transform = 'scale(0.92)';
-        modalDesc.style.opacity = 0;
-        modalDesc.style.transform = 'scale(0.92)';
-        setTimeout(function() {
-          modalImg.style.opacity = 1;
-          modalImg.style.transform = 'scale(1)';
-          modalDesc.style.opacity = 1;
-          modalDesc.style.transform = 'scale(1)';
-        }, 30);
-        // Автоматическое закрытие через 2.5 секунды
-        if (modal._autoCloseTimeout) clearTimeout(modal._autoCloseTimeout);
-        modal._autoCloseTimeout = setTimeout(closePhotoModalSmooth, 2500);
-      });
-    });
     // Закрытие модального окна по клику вне фото или на фото
     document.getElementById('photoModal').addEventListener('click', function(e) {
       if (e.target === this || e.target.classList.contains('photo-modal-img')) {
@@ -904,22 +966,6 @@
         if (this._autoCloseTimeout) clearTimeout(this._autoCloseTimeout);
       }
     });
-    // Автоматический эффект glow для детских фото при скролле
-    function glowPolaroidsOnScroll() {
-      const block = document.querySelector('.childhood-photos');
-      if (!block) return;
-      const polaroids = block.querySelectorAll('.polaroid');
-      const rect = block.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      if (rect.top < windowHeight - 60 && rect.bottom > 60) {
-        polaroids.forEach(el => el.classList.add('child-effect'));
-      } else {
-        polaroids.forEach(el => el.classList.remove('child-effect'));
-      }
-    }
-    window.addEventListener('scroll', glowPolaroidsOnScroll);
-    window.addEventListener('load', glowPolaroidsOnScroll);
-
     // JS: возвращаю простую анимацию появления при скролле снизу вверх
     function revealOnScroll() {
       const reveals = document.querySelectorAll('.reveal-on-scroll');
@@ -936,38 +982,59 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
-    // JS: добавляю обработчик для детских фото (childhood-polaroids img)
-    document.querySelectorAll('.childhood-polaroids img').forEach(function(img) {
-      img.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var modal = document.getElementById('photoModal');
-        var modalImg = document.getElementById('photoModalImg');
-        var modalDesc = document.getElementById('photoModalDesc');
-        modalImg.src = img.src;
-        modalDesc.textContent = img.alt || '';
-        modal.classList.add('active');
-        // Сброс анимации
-        modalImg.style.opacity = 0;
-        modalImg.style.transform = 'scale(0.92)';
-        modalDesc.style.opacity = 0;
-        modalDesc.style.transform = 'scale(0.92)';
-        setTimeout(function() {
-          modalImg.style.opacity = 1;
-          modalImg.style.transform = 'scale(1)';
-          modalDesc.style.opacity = 1;
-          modalDesc.style.transform = 'scale(1)';
-        }, 30);
-        // Автоматическое закрытие через 2.5 секунды
-        if (modal._autoCloseTimeout) clearTimeout(modal._autoCloseTimeout);
-        modal._autoCloseTimeout = setTimeout(closePhotoModalSmooth, 2500);
-      });
-    });
-
     // 1. Убираю zoom-on-click с формы (на всякий случай удаляю класс у всех input, button внутри формы)
     document.querySelectorAll('form input, form button, form textarea').forEach(function(el) {
       el.classList.remove('zoom-on-click');
     });
-    // Удаляю все обработчики submit, которые обновляют страницу
+
+    // Переключатель языка
+    const langButtons = document.querySelectorAll('[data-lang-btn]');
+    const langElements = document.querySelectorAll('[data-i18n]');
+    const langPlaceholders = document.querySelectorAll('[data-i18n-placeholder]');
+    const LANG_KEY = 'inviteLang';
+    let currentLang = 'ru';
+
+    const placeholderTexts = {
+      name: { ru: 'Имя', kg: 'Атыңыз' },
+      phone: { ru: 'Телефон', kg: 'Телефон' },
+      wishes: { ru: 'ваши пожелания', kg: 'Куттуктоо сөздөрүңүз' }
+    };
+
+    function applyLanguage(lang) {
+      // Текстовые блоки
+      langElements.forEach(function(el) {
+        const key = 'data-' + lang;
+        const value = el.getAttribute(key);
+        if (value) {
+          el.innerHTML = value;
+        }
+      });
+      // Плейсхолдеры
+      langPlaceholders.forEach(function(el) {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (key && placeholderTexts[key] && placeholderTexts[key][lang]) {
+          el.placeholder = placeholderTexts[key][lang];
+        }
+      });
+      // Активная кнопка
+      langButtons.forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-lang-btn') === lang);
+      });
+      localStorage.setItem(LANG_KEY, lang);
+      currentLang = lang;
+    }
+
+    langButtons.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        const lang = btn.getAttribute('data-lang-btn') || 'ru';
+        applyLanguage(lang);
+      });
+    });
+
+    // Устанавливаем язык при загрузке
+    const savedLang = localStorage.getItem(LANG_KEY) || 'ru';
+    applyLanguage(savedLang);
+
     // --- Отправка формы пожеланий в Telegram ---
     document.getElementById('wishForm').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -986,29 +1053,110 @@
         return;
       }
       var text = `Новая заявка со свадьбы!%0AИмя: ${encodeURIComponent(name)}%0AТелефон: ${encodeURIComponent(phone)}%0AБудет: ${encodeURIComponent(attend || '')}%0AПожелания: ${encodeURIComponent(wishes)}`;
-      var token = '7653350026:AAG398IwkV2JMF-x-df5qnHSqoWNLHyBZhA';
-      var chatId = '737775267';
+      var token = '8484389384:AAFuE0t48rZ6AN-KHZqaKFBjYw2ST4CE2qQ';
+      var chatId = '7555457615';
       var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${text}`;
       fetch(url)
         .then(function(res) {
-          if (res.ok) {
-            successMsg.style.display = 'block';
-            form.reset();
-          } else {
-            errorMsg.textContent = 'Ошибка отправки. Попробуйте позже.';
-            errorMsg.style.display = 'block';
-          }
+          return res.json().then(function(data) {
+            if (res.ok && data.ok) {
+              successMsg.style.display = 'block';
+              form.reset();
+            } else {
+              console.error('Telegram API Error:', data);
+              errorMsg.textContent = 'Ошибка отправки: ' + (data.description || 'Попробуйте позже');
+              errorMsg.style.display = 'block';
+            }
+          });
         })
-        .catch(function() {
-          errorMsg.textContent = 'Ошибка отправки. Попробуйте позже.';
+        .catch(function(error) {
+          console.error('Fetch Error:', error);
+          errorMsg.textContent = 'Ошибка отправки. Проверьте подключение к интернету.';
           errorMsg.style.display = 'block';
         });
     });
 
+    // Мини‑тест "Как мы познакомились"
+    const quizForm = document.getElementById('quizForm');
+    const quizCheck = document.getElementById('quizCheck');
+    const quizResult = document.getElementById('quizResult');
+    const quizToast = document.getElementById('quizToast');
+    const quizToastContent = document.getElementById('quizToastContent');
+    let quizToastTimeout;
+
+    function showQuizToast(message, isSuccess) {
+      if (!quizToast || !quizToastContent) return;
+      quizToastContent.textContent = message;
+      quizToastContent.style.color = isSuccess ? '#2e7d32' : '#c35009';
+      quizToast.classList.add('visible');
+      if (quizToastTimeout) clearTimeout(quizToastTimeout);
+      quizToastTimeout = setTimeout(function() {
+        quizToast.classList.remove('visible');
+        // сброс выбора и текста под вопросом
+        if (quizForm) {
+          quizForm.reset();
+        }
+        if (quizResult) {
+          quizResult.textContent = '';
+        }
+      }, 3000);
+    }
+
+    if (quizToast) {
+      quizToast.addEventListener('click', function() {
+        quizToast.classList.remove('visible');
+        if (quizToastTimeout) clearTimeout(quizToastTimeout);
+      });
+    }
+
+    if (quizForm && quizCheck && quizResult) {
+      quizCheck.addEventListener('click', function() {
+        const selected = quizForm.querySelector('input[name="howMeet"]:checked');
+        let message = '';
+        let isSuccess = false;
+        if (!selected) {
+          message = currentLang === 'kg'
+            ? 'Алгач вариантты тандаңыз 🙂'
+            : 'Сначала выберите вариант 🙂';
+          quizResult.style.color = '#c35009';
+          quizResult.textContent = message;
+          showQuizToast(message, false);
+          return;
+        }
+        if (selected.value === '4') {
+          isSuccess = true;
+          message = currentLang === 'kg'
+            ? 'Эн туура! VIP конок болот турбайсызбы, сөзсүз келиниз!❤️'
+            : 'Проходите, VIP‑гость! Вы всё знаете ❤️';
+        } else {
+          message = currentLang === 'kg'
+            ? 'Тууй ата туура эмес😄😄Анда тойдон айтып берели,сөзсүз келиниз!'
+            : 'Хмм… Придётся рассказать всё на празднике 😄';
+        }
+        quizResult.style.color = isSuccess ? '#2e7d32' : '#c35009';
+        quizResult.textContent = message;
+        showQuizToast(message, isSuccess);
+      });
+    }
+
     // Управление фоновой музыкой
     const bgMusic = document.getElementById('bgMusic');
     const audioPlayer = document.getElementById('audioPlayer');
+    const MUSIC_STORAGE_KEY = 'inviteMusicTime';
+    const MUSIC_PLAYING_KEY = 'inviteMusicPlaying';
+    const MUSIC_SESSION_KEY = 'inviteMusicSessionInit';
     let isMusicPlaying = false;
+
+    // При первом открытии страницы в текущей вкладке начинаем трек заново
+    // Но только если музыка не играла на другой странице
+    if (!sessionStorage.getItem(MUSIC_SESSION_KEY)) {
+      const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+      if (!wasPlaying) {
+        localStorage.removeItem(MUSIC_STORAGE_KEY);
+        bgMusic.currentTime = 0;
+      }
+      sessionStorage.setItem(MUSIC_SESSION_KEY, 'true');
+    }
 
     // Функция для воспроизведения музыки (только play)
     function playMusic() {
@@ -1018,6 +1166,7 @@
         bgMusic.play().then(() => {
           isMusicPlaying = true;
           audioPlayer.classList.add('playing');
+          localStorage.setItem(MUSIC_PLAYING_KEY, 'true');
         }).catch(error => {
           console.log("Ошибка воспроизведения:", error);
         });
@@ -1030,6 +1179,7 @@
         bgMusic.pause();
         isMusicPlaying = false;
         audioPlayer.classList.remove('playing');
+        localStorage.setItem(MUSIC_PLAYING_KEY, 'false');
       }
     }
 
@@ -1057,28 +1207,64 @@
 
     // Сохраняем позицию музыки при уходе со страницы
     function saveMusicPosition() {
-      if (!bgMusic.paused) {
-        localStorage.setItem('musicTime', bgMusic.currentTime);
-      }
+      localStorage.setItem(MUSIC_STORAGE_KEY, bgMusic.currentTime || 0);
+      localStorage.setItem(MUSIC_PLAYING_KEY, isMusicPlaying ? 'true' : 'false');
     }
-    window.addEventListener('beforeunload', saveMusicPosition);
+    
+    // Сохраняем позицию перед переходом на другую страницу
+    document.querySelectorAll('a[href]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        if (link.href.includes('index') || link.href.includes('index-kg')) {
+          saveMusicPosition();
+        }
+      });
+    });
+    
+    // При уходе со страницы останавливаем музыку
+    window.addEventListener('beforeunload', function() {
+      saveMusicPosition();
+      if (isMusicPlaying) {
+        bgMusic.pause();
+      }
+    });
+    
+    // При скрытии вкладки паузим музыку
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         saveMusicPosition();
-        pauseMusic();
+        if (isMusicPlaying) {
+          bgMusic.pause();
+        }
       }
     });
 
-    // Восстанавливаем позицию музыки при возврате
-    window.addEventListener('pageshow', function(e) {
-      const savedTime = localStorage.getItem('musicTime');
-      if (savedTime) {
-        bgMusic.currentTime = parseFloat(savedTime);
-      }
-      if (!isMusicPlaying) {
-        playMusic();
+    // Восстанавливаем позицию музыки при загрузке страницы
+    window.addEventListener('load', function() {
+      const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+      const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+      
+      // Проверяем, был ли переход с другой страницы (по наличию сохраненной позиции)
+      const isPageTransition = savedTime && parseFloat(savedTime) > 0 && parseFloat(savedTime) < bgMusic.duration;
+      
+      if (isPageTransition && wasPlaying) {
+        // Это переход между страницами, восстанавливаем позицию
+        if (savedTime && !Number.isNaN(parseFloat(savedTime))) {
+          bgMusic.currentTime = parseFloat(savedTime);
+        }
+        // Продолжаем воспроизведение после небольшой задержки
+        setTimeout(() => {
+          if (!isMusicPlaying) {
+            playMusic();
+          }
+        }, 300);
+      } else {
+        // Первый запуск или музыка была на паузе - начинаем с начала
+        bgMusic.currentTime = 0;
+        localStorage.removeItem(MUSIC_STORAGE_KEY);
+        localStorage.setItem(MUSIC_PLAYING_KEY, 'false');
       }
     });
   </script>
 </body>
 </html>
+

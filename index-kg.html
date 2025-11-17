@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="kg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ариет & Багайым – Үйлөнүү тоюна чакыруу</title>
+  <link href="https://fonts.googleapis.com/css2?family=Marck+Script&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Neucha&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap&subset=cyrillic" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap&subset=cyrillic" rel="stylesheet">
+  <style>
+    html, body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden !important;
+    }
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: url('tfon6.jpeg') center center/cover no-repeat;
+      min-height: 100vh;
+    }
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+    .main-wrapper {
+      display: flex;
+      flex-direction: row;
+      gap: 32px;
+      justify-content: center;
+      align-items: flex-start;
+      width: 100%;
+      padding: 40px 0;
+      box-sizing: border-box;
+    }
+    .card {
+      background: transparent;
+      border-radius: 24px;
+      box-shadow: none;
+      padding: 36px 28px;
+      max-width: 340px;
+      min-width: 280px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .vertical-photo-block {
+      width: 10px;
+      margin: 7400 auto;
+      border-radius: 18px;
+      overflow: hidden;
+      background: transparent;
+      box-shadow: none;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-photo-area {
+      position: relative;
+      width: 100%;
+      height: 840px;
+      overflow: hidden;
+    }
+    .main-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .main-names {
+      position: absolute;
+      top: 34px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      color: #fff !important;
+      font-size: 3.1rem;
+      font-family: 'Dancing Script', cursive;
+      font-weight: 700;
+      letter-spacing: 0.01em;
+      text-shadow: 0 2px 10px #444;
+      pointer-events: none;
+      line-height: 1.1;
+      background: none;
+    }
+    .info-block {
+      background: transparent;
+      padding: 24px 18px 18px 18px;
+      text-align: center;
+    }
+    .info-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin-bottom: 10px;
+    }
+    .info-text {
+      font-size: 1rem;
+      color: #444;
+      margin-bottom: 18px;
+    }
+    .accent {
+      font-family: 'Neucha', cursive;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      margin: 18px 0 8px 0;
+      text-align: center;
+      font-weight: 400;
+    }
+    input, textarea, select {
+      font-size: 16px !important;
+    }
+    .dresscode-circles {
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin: 24px 0;
+    }
+    .dresscode-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .dresscode-item img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #e3d7c9;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      margin-bottom: 8px;
+    }
+    .dresscode-item .label {
+      font-size: 1rem;
+      color: #7a6a5a;
+      text-align: center;
+    }
+    .title, .main-names, .info-title, .info-text, .waiting-block, .calendar-block, .calendar-table, .countdown-block, .horizontal-timer, .timer-block, .section-title {
+      color: #222 !important;
+      font-weight: 700;
+      text-shadow: 0 2px 10px #fff, 0 1px 0 #fff;
+    }
+    .calendar-table th, .calendar-table td {
+      color: #222 !important;
+      font-weight: 700;
+      text-shadow: 0 2px 10px #fff, 0 1px 0 #fff;
+    }
+    .countdown-block {
+      margin: 32px 0 0 0;
+      text-align: center;
+    }
+    .horizontal-timer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #222;
+      margin-top: 8px;
+      letter-spacing: 0.08em;
+    }
+    .timer-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .timer-block .label {
+      font-size: 0.6rem;
+      color: #888;
+      margin-top: 2px;
+    }
+    .horizontal-timer .sep {
+      font-size: 1.5rem;
+      color: #888;
+    }
+    .calendar-block {
+      margin: 32px 0 0 0;
+      text-align: center;
+    }
+    .calendar-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+      font-size: 1.1rem;
+      color: #444;
+    }
+    .calendar-table th, .calendar-table td {
+      padding: 4px 8px;
+      text-align: center;
+      border-radius: 50%;
+      position: relative;
+    }
+    .calendar-pulse {
+      background: none;
+      color: #c35009;
+      font-weight: 1000;
+      position: relative;
+      text-align: center;
+    }
+    .calendar-pulse-number {
+      position: relative;
+      z-index: 2;
+      font-size: 1.1em;
+      color: #c35009;
+      font-weight: 1000;
+      display: inline-block;
+    }
+    .heart-pulse svg {
+      position: absolute;
+      left: 80%;
+      top: 30%;
+      transform: translate(-50%, -60%) scale(1);
+      animation: heart-pulse 1.2s infinite;
+      z-index: 1;
+      pointer-events: none;
+    }
+    @keyframes heart-pulse {
+      0% { transform: translate(-50%, -60%) scale(1); }
+      20% { transform: translate(-50%, -60%) scale(1.3); }
+      40% { transform: translate(-60%, -60%) scale(1); }
+      60% { transform: translate(-50%, -80%) scale(1.3); }
+      100% { transform: translate(-50%, -60%) scale(1); }
+    }
+    .button {
+      background: #aeb8a6;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 22px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      margin: 18px 0 0 0;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .button:hover {
+      background: #8d9b85;
+    }
+    .block-bg {
+      background: rgba(255,255,255,0.55);
+      border-radius: 18px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 18px 12px;
+      margin-bottom: 18px;
+    }
+    .details-block {
+      font-size: 1.08rem;
+      line-height: 1.5;
+      background: none;
+      border-radius: 0;
+      padding: 0;
+      margin-top: 10px;
+      margin-bottom: 22px;
+      box-shadow: none;
+      display: block;
+      max-width: 98vw;
+    }
+    .waiting-block {
+      font-size: 1.18rem;
+      color: #7a6a5a;
+      font-family: 'Dancing Script', cursive;
+      font-weight: 600;
+      margin: 32px 0 24px 0;
+      text-align: center;
+      letter-spacing: 0.01em;
+    }
+    .lang-switcher {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      z-index: 1001;
+      display: inline-flex;
+      gap: 0;
+      background: rgba(255,255,255,0.92);
+      border-radius: 999px;
+      padding: 2px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.16);
+      font-size: 0.72rem;
+      border: 1px solid rgba(174,184,166,0.5);
+    }
+    .lang-switcher a,
+    .lang-switcher button {
+      border: none;
+      background: transparent;
+      border-radius: 999px;
+      padding: 3px 8px;
+      cursor: pointer;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #555;
+      min-width: 58px;
+      text-align: center;
+      text-decoration: none;
+    }
+    .lang-switcher .active {
+      background: #aeb8a6;
+      color: #fff;
+    }
+    .reveal-on-scroll {
+      opacity: 0;
+      transition: opacity 0.7s cubic-bezier(.4,0,.2,1);
+    }
+    .reveal-on-scroll.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .audio-player {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .audio-player.playing {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    .quiz-toast {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.35);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 1100;
+    }
+    .quiz-toast.visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .quiz-toast-content {
+      max-width: 80%;
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 14px 18px;
+      font-size: 1rem;
+      text-align: center;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.25);
+    }
+    @media (max-width: 900px) {
+      .main-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 24px;
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100%;
+      }
+      .main-photo-area {
+        width: 100%;
+        height: 100vh;
+        min-height: 700px;
+        max-height: 100vw;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+      }
+      .main-photo {
+        width: 100%;
+        height: 100vh;
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        padding: 0;
+      }
+      .vertical-photo-block {
+        width: 100%;
+        min-width: 0;
+        border-radius: 0;
+        margin: 0;
+        padding: 0;
+        margin-top: 0;
+      }
+      .info-block,
+      .calendar-block {
+        margin-top: 32px;
+      }
+    }
+    @media (max-width: 800px) {
+      body {
+        background: url('tfon6.jpeg') center top no-repeat;
+        background-size: 100% 100%;
+        min-height: 100vh;
+      }
+    }
+    @media (max-width: 600px) {
+      .dresscode-circles {
+        gap: 12px;
+      }
+      .dresscode-item img {
+        width: 60px;
+        height: 60px;
+      }
+      .details-block {
+        font-size: 0.98rem;
+        padding: 0;
+      }
+      .waiting-block {
+        font-size: 1.05rem;
+        margin: 24px 0 18px 0;
+      }
+      .block-bg {
+        padding: 10px 4px;
+        border-radius: 12px;
+      }
+      .lang-switcher {
+        top: 8px;
+        right: 6px;
+        padding: 2px;
+        font-size: 0.68rem;
+      }
+      .lang-switcher a,
+      .lang-switcher button {
+        padding: 2px 7px;
+        font-size: 0.68rem;
+        min-width: 54px;
+      }
+      .quiz-toast-content {
+        max-width: 90%;
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="lang-switcher">
+    <a href="index.html">Русский</a>
+    <button type="button" class="active">Кыргызча</button>
+  </div>
+
+  <audio id="bgMusic" loop muted>
+    <source src="Jax (02.14) - Озгочо кун.mp3" type="audio/mpeg">
+  </audio>
+  <div class="audio-player" id="audioPlayer" title="Музыканы күйгүзүү/өчүрүү">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 3v18M8 7v10M16 7v10" stroke="#7a6a5a" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </div>
+
+  <div class="main-wrapper">
+    <div class="main-photo-area reveal-on-scroll">
+      <img class="main-photo reveal-on-scroll" src="ariet2.JPG" alt="Негизги сүрөт">
+      <div class="main-names reveal-on-scroll">
+        Ариет<br>& Багайым
+      </div>
+    </div>
+
+    <div class="vertical-photo-block">
+      <div class="info-block reveal-on-scroll">
+        <div class="info-title title reveal-on-scroll">
+          Урматтуу туугандар<br>жана жакындар!
+        </div>
+        <div class="info-text reveal-on-scroll">
+          Бул жылы биздин жашообузда өзгөчө бир күн болот. Ал күнү биз аны үй-бүлөбүз жана эң жакын досторубуз менен чогуу өткөргүбүз келет.<br><br>
+          Сиздерди ушул маанилүү күнүбүзгө – биздин үйлөнүү тоюбузга чакырууга абдан кубанычтабыз!<br>
+          <span style="font-size:1.2em;">&#10048;&#10048;</span>
+        </div>
+
+        <div class="countdown-block reveal-on-scroll">
+          <div class="title" style="margin-top:24px;">Тойго калган убакыт:</div>
+          <div id="countdown" class="horizontal-timer"></div>
+        </div>
+
+        <div class="calendar-block reveal-on-scroll">
+          <div class="title" style="margin-top:24px;">Декабрь 2025</div>
+          <table class="calendar-table">
+            <tr><th>Дү</th><th>Ше</th><th>Ша</th><th>Бш</th><th>Жм</th><th>Иш</th><th>Жк</th></tr>
+            <tr><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td></tr>
+            <tr><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td><td>13</td><td>14</td></tr>
+            <tr><td>15</td><td>16</td>
+              <td class="calendar-pulse">
+                <span class="heart-pulse">
+                  <svg viewBox="0 0 24 24" width="28" height="28" style="vertical-align:middle;">
+                    <path d="M12 21s-6.7-5.2-9.2-8.2C-1.2 8.2 2.4 3.5 7.1 5.1c1.7.6 2.9 2.1 2.9 2.1s1.2-1.5 2.9-2.1c4.7-1.6 8.3 3.1 4.3 7.7C18.7 15.8 12 21 12 21z" fill="#c35009"/>
+                  </svg>
+                </span>
+                <span class="calendar-pulse-number">17</span>
+              </td>
+              <td>18</td><td>19</td><td>20</td><td>21</td></tr>
+            <tr><td>22</td><td>23</td><td>24</td><td>25</td><td>26</td><td>27</td><td>28</td></tr>
+            <tr><td>29</td><td>30</td><td>31</td><td></td><td></td><td></td><td></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="card reveal-on-scroll">
+        <div class="section-title title reveal-on-scroll" style="margin-bottom:8px;">Той</div>
+        <div class="reveal-on-scroll" style="text-align:center; margin-bottom:8px;">
+          17.12.2025 | 17:00<br>
+          Ayar рестораны<br>
+          Фрунзе көчөсү, 133
+        </div>
+        <a class="button reveal-on-scroll" href="https://2gis.kg/bishkek/firm/70000001090743355?m=74.500478%2C42.875671%2F16" target="_blank">Картадан караңыз</a>
+
+        <div class="section-title title reveal-on-scroll" style="margin-top:24px;">Кийим коду</div>
+        <div class="reveal-on-scroll" style="text-align:center; margin-bottom:8px;">
+          Бул кечтин түс гаммасына жакын кийимдерди тандап келсеңиздер, абдан кубанабыз.
+        </div>
+      </div>
+      <!-- Дресс-код -->
+      <div class="dresscode-label" style="text-align:center; font-size:1.1rem; margin-bottom:8px;">Аялдар үчүн</div>
+      <div class="dresscode-circles" style="margin-bottom:18px;">
+        <div class="dresscode-item"><img src="tkan1.jpeg" alt="Аялдар 1"></div>
+        <div class="dresscode-item"><img src="tkan2.jpeg" alt="Аялдар 2"></div>
+        <div class="dresscode-item"><img src="tkan3.jpeg" alt="Аялдар 3"></div>
+        <div class="dresscode-item"><img src="tkan4.jpeg" alt="Аялдар 4"></div>
+      </div>
+      <div class="dresscode-label" style="text-align:center; font-size:1.1rem; margin-bottom:8px;">Эркектер үчүн</div>
+      <div class="dresscode-circles">
+        <div class="dresscode-item"><img src="tkan1.jpeg" alt="Эркектер 1"></div>
+        <div class="dresscode-item"><img src="tkan4.jpeg" alt="Эркектер 2"></div>
+        <div class="dresscode-item"><img src="tkan5.jpeg" alt="Эркектер 3"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card reveal-on-scroll" style="text-align:center;">
+    <div class="section-title title reveal-on-scroll" style="margin-top:24px;">Кошумча маалымат</div>
+    <div class="info-text reveal-on-scroll details-block" style="text-align:center;">
+      Бул күн эсинде кала тургандай болушу үчүн көп даярдандык, ошондуктан 17.12.2025 чейин келе аларыңыздарды билдирип койсоңуздар абдан кубанабыз.
+    </div>
+
+    <div class="block-bg reveal-on-scroll" style="text-align:left; max-width:300px; margin:0 auto 18px auto; padding:12px 10px;">
+      <div class="section-title title" style="margin-top:0; margin-bottom:6px; font-size:0.98rem;">
+        Каяктан таанышканыбызды билесизби?
+      </div>
+      <form id="quizForm" style="font-size:0.9rem; line-height:1.4;">
+        <label style="display:block; margin-bottom:4px;">
+          <input type="radio" name="howMeet" value="1">
+          Тойдон: Ариет темадан тышкары бийлеп, Бегайга жағып калган 😂
+        </label>
+        <label style="display:block; margin-bottom:4px;">
+          <input type="radio" name="howMeet" value="2">
+          Ынтымак паркында: Бегай ырдап, Ариет жактырып калган 😂
+        </label>
+        <label style="display:block; margin-bottom:4px;">
+          <input type="radio" name="howMeet" value="3">
+          Биз «Жоолутук» программасынан (Бегай талапкер болчу) 😂
+        </label>
+        <label style="display:block; margin-bottom:6px;">
+          <input type="radio" name="howMeet" value="4">
+          Кайрымдуулук иштерин кылып, балдарга жана муктаждарга жардам берип жүргөндө таанышканбыз
+        </label>
+        <button type="button" class="button" id="quizCheck" style="margin-top:4px; padding:6px 14px; font-size:0.9rem;">Текшерүү</button>
+        <div id="quizResult" style="margin-top:6px; font-weight:600; font-size:0.9rem;"></div>
+      </form>
+    </div>
+
+    <form class="reveal-on-scroll" id="wishForm" style="width:100%; max-width:260px; margin:0 auto;">
+      <input type="text" name="name" placeholder="Атыңыз" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+      <input type="tel" name="phone" placeholder="Телефон" style="width:100%;margin-bottom:8px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+      <div style="margin-bottom:8px;">Келе аласызбы?<br>
+        <label><input type="radio" name="attend" value="Да"> Ооба</label>
+        <label style="margin-left:12px;"><input type="radio" name="attend" value="Нет"> Жок</label>
+      </div>
+      <input type="text" name="wishes" placeholder="Куттуктоо сөздөрүңүз" style="width:100%;margin-bottom:12px;padding:8px;border-radius:6px;border:1px solid #ccc;">
+      <button class="button" type="submit">Жиберүү</button>
+      <div id="wishSuccess" style="display:none;color:#2e7d32;font-weight:600;margin-top:10px;">Рахмат! Сиздин билдирүүңүз жөнөтүлдү.</div>
+      <div id="wishError" style="display:none;color:#c35009;font-weight:600;margin-top:10px;">Жөнөтүүдө ката кетти. Кийинчерээк кайра аракет кылыңыз.</div>
+    </form>
+
+    <div class="reveal-on-scroll waiting-block" style="text-align:center; font-size:1.3rem; color:#7a6a5a; margin:32px 0 24px 0; font-family:'Dancing Script',cursive; font-weight:600;">
+      Силерди чыдамсыздык менен күтүп жатабыз!<br>
+      <span style="font-size:1.15rem; font-family:'Dancing Script',cursive; font-style:italic; color:#7a6a5a;">Ариет жана Багайым</span>
+    </div>
+    <div style="height: 80px;"></div>
+  </div>
+
+  <div class="quiz-toast" id="quizToast">
+    <div class="quiz-toast-content" id="quizToastContent"></div>
+  </div>
+
+  <script>
+    // Таймер 17 декабрь 2025, 17:00
+    function updateCountdown() {
+      const target = new Date('2025-12-17T17:00:00');
+      const now = new Date();
+      let diff = target - now;
+      if (diff < 0) diff = 0;
+      const days = Math.floor(diff / (1000*60*60*24));
+      const hours = Math.floor((diff / (1000*60*60)) % 24);
+      const mins = Math.floor((diff / (1000*60)) % 60);
+      const secs = Math.floor((diff / 1000) % 60);
+      function pad(n) { return n.toString().padStart(2, '0'); }
+      let html = `
+        <div class="timer-block">${pad(days)}<div class="label">күнд</div></div>
+        <span class="sep">:</span>
+        <div class="timer-block">${pad(hours)}<div class="label">с</div></div>
+        <span class="sep">:</span>
+        <div class="timer-block">${pad(mins)}<div class="label">мин</div></div>
+        <span class="sep">:</span>
+        <div class="timer-block">${pad(secs)}<div class="label">сек</div></div>
+      `;
+      if (diff === 0) {
+        html = '<span style="font-size:1.2rem;font-weight:700;color:#c35009;">Той башталды!</span>';
+      }
+      const countdown = document.getElementById('countdown');
+      if (countdown) {
+        countdown.className = 'horizontal-timer';
+        countdown.innerHTML = html;
+      }
+    }
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // Плавное появление блоков
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal-on-scroll');
+      const windowHeight = window.innerHeight;
+      reveals.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < windowHeight - 60) {
+          el.classList.add('visible');
+        } else {
+          el.classList.remove('visible');
+        }
+      });
+    }
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Отправка формы в Telegram (тексты остаются на русском внутри бота)
+    document.getElementById('wishForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      var form = e.target;
+      var name = form.name.value.trim();
+      var phone = form.phone.value.trim();
+      var wishes = form.wishes.value.trim();
+      var attend = form.attend.value;
+      var successMsg = document.getElementById('wishSuccess');
+      var errorMsg = document.getElementById('wishError');
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+      if (!name || !phone) {
+        errorMsg.textContent = 'Атыңызды жана телефонду толтуруңуз.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+      var text = `Новая заявка со свадьбы!%0AИмя: ${encodeURIComponent(name)}%0AТелефон: ${encodeURIComponent(phone)}%0AБудет: ${encodeURIComponent(attend || '')}%0AПожелания: ${encodeURIComponent(wishes)}`;
+      var token = '8484389384:AAFuE0t48rZ6AN-KHZqaKFBjYw2ST4CE2qQ';
+      var chatId = '7555457615';
+      var url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${text}`;
+      fetch(url)
+        .then(function(res) {
+          return res.json().then(function(data) {
+            if (res.ok && data.ok) {
+              successMsg.style.display = 'block';
+              form.reset();
+            } else {
+              console.error('Telegram API Error:', data);
+              errorMsg.textContent = 'Жөнөтүүдө ката кетти: ' + (data.description || 'Кийинчерээк кайра аракет кылыңыз');
+              errorMsg.style.display = 'block';
+            }
+          });
+        })
+        .catch(function(error) {
+          console.error('Fetch Error:', error);
+          errorMsg.textContent = 'Жөнөтүүдө ката кетти. Интернет байланышын текшериңиз.';
+          errorMsg.style.display = 'block';
+        });
+    });
+
+    // Мини‑тест
+    const quizForm = document.getElementById('quizForm');
+    const quizCheck = document.getElementById('quizCheck');
+    const quizResult = document.getElementById('quizResult');
+    const quizToast = document.getElementById('quizToast');
+    const quizToastContent = document.getElementById('quizToastContent');
+    let quizToastTimeout;
+
+    function showQuizToast(message, isSuccess) {
+      if (!quizToast || !quizToastContent) return;
+      quizToastContent.textContent = message;
+      quizToastContent.style.color = isSuccess ? '#2e7d32' : '#c35009';
+      quizToast.classList.add('visible');
+      if (quizToastTimeout) clearTimeout(quizToastTimeout);
+      quizToastTimeout = setTimeout(function() {
+        quizToast.classList.remove('visible');
+        if (quizForm) quizForm.reset();
+        if (quizResult) quizResult.textContent = '';
+      }, 3000);
+    }
+
+    if (quizToast) {
+      quizToast.addEventListener('click', function() {
+        quizToast.classList.remove('visible');
+        if (quizToastTimeout) clearTimeout(quizToastTimeout);
+      });
+    }
+
+    if (quizForm && quizCheck && quizResult) {
+      quizCheck.addEventListener('click', function() {
+        const selected = quizForm.querySelector('input[name="howMeet"]:checked');
+        let message = '';
+        let isSuccess = false;
+        if (!selected) {
+          message = 'Алгач вариантты тандаңыз 🙂';
+          quizResult.style.color = '#c35009';
+          quizResult.textContent = message;
+          showQuizToast(message, false);
+          return;
+        }
+        if (selected.value === '4') {
+          isSuccess = true;
+          message = 'Эн туура! VIP конок болот турбайсызбы, сөзсүз келиниз!❤️';
+        } else {
+          message = 'Тууй ата туура эмес😄😄Анда тойдон айтып берели,сөзсүз келиниз!';
+        }
+        quizResult.style.color = isSuccess ? '#2e7d32' : '#c35009';
+        quizResult.textContent = message;
+        showQuizToast(message, isSuccess);
+      });
+    }
+
+    // Музыка
+    const bgMusic = document.getElementById('bgMusic');
+    const audioPlayer = document.getElementById('audioPlayer');
+    const MUSIC_STORAGE_KEY = 'inviteMusicTime';
+    const MUSIC_PLAYING_KEY = 'inviteMusicPlaying';
+    const MUSIC_SESSION_KEY = 'inviteMusicSessionInitKg';
+    let isMusicPlaying = false;
+
+    // При первом открытии страницы в текущей вкладке начинаем трек заново
+    // Но только если музыка не играла на другой странице
+    if (!sessionStorage.getItem(MUSIC_SESSION_KEY)) {
+      const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+      if (!wasPlaying) {
+        localStorage.removeItem(MUSIC_STORAGE_KEY);
+        bgMusic.currentTime = 0;
+      }
+      sessionStorage.setItem(MUSIC_SESSION_KEY, 'true');
+    }
+
+    function playMusic() {
+      if (!isMusicPlaying) {
+        bgMusic.volume = 0.5;
+        bgMusic.muted = false;
+        bgMusic.play().then(() => {
+          isMusicPlaying = true;
+          audioPlayer.classList.add('playing');
+          localStorage.setItem(MUSIC_PLAYING_KEY, 'true');
+        }).catch(() => {});
+      }
+    }
+    function pauseMusic() {
+      if (isMusicPlaying) {
+        bgMusic.pause();
+        isMusicPlaying = false;
+        audioPlayer.classList.remove('playing');
+        localStorage.setItem(MUSIC_PLAYING_KEY, 'false');
+      }
+    }
+    audioPlayer.addEventListener('click', function() {
+      if (isMusicPlaying) pauseMusic(); else playMusic();
+    });
+
+    let started = false;
+    function startMusicOnce() {
+      if (!started) {
+        playMusic();
+        started = true;
+      }
+    }
+    window.addEventListener('scroll', startMusicOnce, { once: true });
+    document.addEventListener('mousemove', startMusicOnce, { once: true });
+    document.addEventListener('touchstart', startMusicOnce, { once: true });
+    document.addEventListener('click', startMusicOnce, { once: true });
+
+    function saveMusicPosition() {
+      localStorage.setItem(MUSIC_STORAGE_KEY, bgMusic.currentTime || 0);
+      localStorage.setItem(MUSIC_PLAYING_KEY, isMusicPlaying ? 'true' : 'false');
+    }
+    
+    // Сохраняем позицию перед переходом на другую страницу
+    document.querySelectorAll('a[href]').forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        if (link.href.includes('index') || link.href.includes('index-kg')) {
+          saveMusicPosition();
+        }
+      });
+    });
+    
+    // При уходе со страницы останавливаем музыку
+    window.addEventListener('beforeunload', function() {
+      saveMusicPosition();
+      if (isMusicPlaying) {
+        bgMusic.pause();
+      }
+    });
+    
+    // При скрытии вкладки паузим музыку
+    document.addEventListener('visibilitychange', function() {
+      if (document.hidden) {
+        saveMusicPosition();
+        if (isMusicPlaying) {
+          bgMusic.pause();
+        }
+      }
+    });
+    
+    // Восстанавливаем позицию музыки при загрузке страницы
+    window.addEventListener('load', function() {
+      const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+      const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+      
+      // Проверяем, был ли переход с другой страницы (по наличию сохраненной позиции)
+      const isPageTransition = savedTime && parseFloat(savedTime) > 0 && parseFloat(savedTime) < bgMusic.duration;
+      
+      if (isPageTransition && wasPlaying) {
+        // Это переход между страницами, восстанавливаем позицию
+        if (savedTime && !Number.isNaN(parseFloat(savedTime))) {
+          bgMusic.currentTime = parseFloat(savedTime);
+        }
+        // Продолжаем воспроизведение после небольшой задержки
+        setTimeout(() => {
+          if (!isMusicPlaying) {
+            playMusic();
+          }
+        }, 300);
+      } else {
+        // Первый запуск или музыка была на паузе - начинаем с начала
+        bgMusic.currentTime = 0;
+        localStorage.removeItem(MUSIC_STORAGE_KEY);
+        localStorage.setItem(MUSIC_PLAYING_KEY, 'false');
+      }
+    });
+  </script>
+</body>
+</html>
+
+
