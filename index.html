@@ -1216,11 +1216,14 @@
       link.addEventListener('click', function(e) {
         if (link.href.includes('index') || link.href.includes('index-kg')) {
           saveMusicPosition();
+        } else if (link.href.includes('2gis') || link.href.includes('map')) {
+          // Сохраняем позицию при переходе на карту
+          saveMusicPosition();
         }
       });
     });
     
-    // При уходе со страницы останавливаем музыку
+    // При уходе со страницы (закрытие вкладки) останавливаем музыку
     window.addEventListener('beforeunload', function() {
       saveMusicPosition();
       if (isMusicPlaying) {
@@ -1228,12 +1231,23 @@
       }
     });
     
-    // При скрытии вкладки паузим музыку
+    // При скрытии вкладки сохраняем позицию, но не останавливаем музыку
+    // (чтобы при возврате с карты музыка продолжалась)
     document.addEventListener('visibilitychange', function() {
       if (document.hidden) {
         saveMusicPosition();
-        if (isMusicPlaying) {
-          bgMusic.pause();
+        // Не паузим музыку, чтобы она продолжалась при возврате
+      } else {
+        // При возврате на вкладку восстанавливаем позицию и продолжаем
+        const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+        const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+        if (savedTime && !Number.isNaN(parseFloat(savedTime)) && wasPlaying) {
+          bgMusic.currentTime = parseFloat(savedTime);
+          if (!isMusicPlaying) {
+            setTimeout(() => {
+              playMusic();
+            }, 100);
+          }
         }
       }
     });
@@ -1244,10 +1258,10 @@
       const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
       
       // Проверяем, был ли переход с другой страницы (по наличию сохраненной позиции)
-      const isPageTransition = savedTime && parseFloat(savedTime) > 0 && parseFloat(savedTime) < bgMusic.duration;
+      const isPageTransition = savedTime && parseFloat(savedTime) > 0;
       
       if (isPageTransition && wasPlaying) {
-        // Это переход между страницами, восстанавливаем позицию
+        // Это переход между страницами или возврат с карты, восстанавливаем позицию
         if (savedTime && !Number.isNaN(parseFloat(savedTime))) {
           bgMusic.currentTime = parseFloat(savedTime);
         }
@@ -1262,6 +1276,23 @@
         bgMusic.currentTime = 0;
         localStorage.removeItem(MUSIC_STORAGE_KEY);
         localStorage.setItem(MUSIC_PLAYING_KEY, 'false');
+      }
+    });
+    
+    // Также восстанавливаем при возврате через pageshow (для случаев возврата с карты)
+    window.addEventListener('pageshow', function(e) {
+      // e.persisted = true означает, что страница загружена из кэша (возврат назад)
+      if (e.persisted) {
+        const savedTime = localStorage.getItem(MUSIC_STORAGE_KEY);
+        const wasPlaying = localStorage.getItem(MUSIC_PLAYING_KEY) === 'true';
+        if (savedTime && !Number.isNaN(parseFloat(savedTime)) && wasPlaying) {
+          bgMusic.currentTime = parseFloat(savedTime);
+          setTimeout(() => {
+            if (!isMusicPlaying) {
+              playMusic();
+            }
+          }, 100);
+        }
       }
     });
   </script>
