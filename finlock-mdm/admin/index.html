@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FinLock MDM — Admin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; margin: 0; background: #0b0f14; color: #e7ecf1; }
+    header { padding: 14px 20px; background: #151c28; border-bottom: 1px solid #243044; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    h1 { margin: 0; font-size: 1.2rem; }
+    .badge { font-size: 11px; padding: 4px 10px; border-radius: 999px; background: #1d4ed8; white-space: nowrap; }
+    main { display: grid; grid-template-columns: 1fr 340px; gap: 14px; padding: 14px; max-width: 1500px; margin: 0 auto; }
+    @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+    .card { background: #151c28; border-radius: 10px; padding: 14px; border: 1px solid #243044; }
+    .toolbar { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 12px; align-items: center; }
+    .toolbar input { flex: 1; min-width: 180px; margin: 0; }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    th, td { text-align: left; padding: 9px 8px; border-bottom: 1px solid #243044; vertical-align: middle; }
+    tbody tr { cursor: pointer; }
+    tbody tr:hover { background: #1c2738; }
+    tbody tr.selected { background: #1e3a5f; }
+    code { font-size: 12px; color: #93c5fd; }
+    .muted { color: #64748b; font-size: 12px; }
+    label { display: block; font-size: 11px; color: #94a3b8; margin-bottom: 4px; text-transform: uppercase; letter-spacing: .03em; }
+    input, textarea { width: 100%; padding: 8px 10px; margin-bottom: 8px; border: 1px solid #243044; border-radius: 8px; background: #0b0f14; color: #e7ecf1; }
+    button { padding: 8px 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; font-size: 13px; }
+    .btn-green { background: #16a34a; color: #fff; }
+    .btn-red { background: #dc2626; color: #fff; }
+    .btn-blue { background: #2563eb; color: #fff; }
+    .btn-gray { background: #334155; color: #fff; }
+    .toggle { width: 46px; height: 26px; border-radius: 999px; border: none; cursor: pointer; position: relative; transition: .2s; flex-shrink: 0; }
+    .toggle.on { background: #16a34a; }
+    .toggle.off { background: #475569; }
+    .toggle.locked { background: #dc2626; }
+    .toggle::after { content: ''; position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: .2s; }
+    .toggle.on::after, .toggle.locked::after { left: 23px; }
+    .pill { font-size: 10px; padding: 2px 7px; border-radius: 999px; font-weight: 700; text-transform: uppercase; }
+    .pill.active { background: #064e3b; color: #6ee7b7; }
+    .pill.locked { background: #7f1d1d; color: #fca5a5; }
+    .pill.pending { background: #78350f; color: #fcd34d; }
+    .pill.offline { background: #374151; color: #cbd5e1; }
+    .events { font-size: 12px; max-height: 180px; overflow-y: auto; padding-left: 18px; margin: 0; }
+    .events li { margin-bottom: 6px; color: #94a3b8; }
+    .hint { font-size: 11px; color: #64748b; margin-top: 6px; line-height: 1.4; }
+    .count { font-size: 12px; color: #64748b; margin-left: auto; }
+    .row-actions { display: flex; align-items: center; gap: 8px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>FinLock MDM</h1>
+    <span class="badge" id="mdmMode">demo</span>
+  </header>
+  <main>
+    <section class="card">
+      <div class="toolbar">
+        <button class="btn-green" id="btnRefresh">Обновить список</button>
+        <input id="searchInput" placeholder="Поиск по IMEI, serial, модели, клиенту..." />
+        <button class="btn-blue" id="btnSearch">Найти</button>
+        <span class="count" id="deviceCount"></span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>IMEI</th>
+            <th>Serial</th>
+            <th>Модель</th>
+            <th>Клиент</th>
+            <th>Online</th>
+            <th>Контроль</th>
+          </tr>
+        </thead>
+        <tbody id="deviceList"></tbody>
+      </table>
+    </section>
+    <aside class="card">
+      <h2 style="margin:0 0 10px;font-size:1rem" id="panelTitle">Добавить устройство</h2>
+      <form id="deviceForm">
+        <label>Serial *</label>
+        <input name="serial" required placeholder="F2LD..." />
+        <label>IMEI</label>
+        <input name="imei" placeholder="350367277973763" />
+        <label>Модель</label>
+        <input name="model" placeholder="iPhone 15 Pro Max 256GB" />
+        <label>UDID (после MDM enroll)</label>
+        <input name="udid" placeholder="00008110-..." />
+        <label>ФИО клиента</label>
+        <input name="customerName" />
+        <label>Телефон</label>
+        <input name="customerPhone" />
+        <label>Договор</label>
+        <input name="contractId" />
+        <label>Сумма рассрочки</label>
+        <input name="installmentTotal" type="number" />
+        <label>Дата след. платежа</label>
+        <input name="nextPaymentDate" type="date" />
+        <button type="submit" class="btn-blue" style="width:100%">Добавить</button>
+      </form>
+      <div id="actions" style="display:none;margin-top:14px;border-top:1px solid #243044;padding-top:14px">
+        <label>Текст блокировки</label>
+        <textarea id="lockMessage" rows="3">Оплатите рассрочку. Обратитесь в магазин.</textarea>
+        <div style="display:flex;flex-wrap:wrap;gap:8px">
+          <button class="btn-red" id="btnLock">Заблокировать</button>
+          <button class="btn-green" id="btnUnlock">Разблокировать</button>
+          <button class="btn-gray" id="btnPin">Сброс PIN</button>
+        </div>
+        <p class="hint">Зелёный toggle = активен. Красный = заблокирован. Demo: без MicroMDM только статус в панели.</p>
+      </div>
+      <h3 style="font-size:14px;margin:14px 0 8px">Журнал</h3>
+      <ul class="events" id="events"></ul>
+    </aside>
+  </main>
+  <script>
+    const API = location.origin + '/api';
+    let selectedId = null;
+    let searchQuery = '';
+
+    async function api(path, opts) {
+      const r = await fetch(API + path, { headers: { 'Content-Type': 'application/json' }, ...opts });
+      const data = await r.json().catch(() => ({}));
+      if (!r.ok) throw new Error(data.error || r.statusText);
+      return data;
+    }
+
+    function isOnline(d) {
+      if (!d.lastSeen) return false;
+      return Date.now() - new Date(d.lastSeen).getTime() < 3600000;
+    }
+
+    function toggleClass(d) {
+      if (d.status === 'locked') return 'locked';
+      if (d.status === 'active' || d.status === 'pending') return 'on';
+      return 'off';
+    }
+
+    async function loadHealth() {
+      const h = await api('/health');
+      document.getElementById('mdmMode').textContent = h.mdm.mode + (h.mdm.micromdmConfigured ? ' + MDM' : '');
+    }
+
+    async function loadDevices() {
+      const path = searchQuery ? '/devices?q=' + encodeURIComponent(searchQuery) : '/devices';
+      const list = await api(path);
+      document.getElementById('deviceCount').textContent = 'Записей: ' + list.length;
+      const tbody = document.getElementById('deviceList');
+      tbody.innerHTML = list.length ? list.map(d => `
+        <tr data-id="${d.id}" class="${d.id === selectedId ? 'selected' : ''}">
+          <td><code>${d.imei || '—'}</code></td>
+          <td><code>${d.serial}</code></td>
+          <td>${d.model || '—'}</td>
+          <td>
+            <div>${d.customerName || '—'}</div>
+            <div class="muted">${d.customerPhone || ''}</div>
+          </td>
+          <td><span class="pill ${isOnline(d) ? 'active' : 'offline'}">${isOnline(d) ? 'online' : 'offline'}</span></td>
+          <td class="row-actions">
+            <button class="toggle ${toggleClass(d)}" data-toggle="${d.id}" title="${d.status === 'locked' ? 'Заблокирован' : 'Активен'}"></button>
+            <span class="pill ${d.status}">${d.status}</span>
+          </td>
+        </tr>
+      `).join('') : '<tr><td colspan="6" class="muted">Нет устройств</td></tr>';
+
+      tbody.querySelectorAll('tr[data-id]').forEach(tr => {
+        tr.onclick = (e) => {
+          if (e.target.dataset.toggle) return;
+          selectDevice(tr.dataset.id);
+        };
+      });
+      tbody.querySelectorAll('[data-toggle]').forEach(btn => {
+        btn.onclick = async (e) => {
+          e.stopPropagation();
+          const id = btn.dataset.toggle;
+          const device = list.find(x => x.id === id);
+          if (!device) return;
+          try {
+            if (device.status === 'locked') {
+              await api('/devices/' + id + '/unlock', { method: 'POST', body: '{}' });
+            } else {
+              await api('/devices/' + id + '/lock', {
+                method: 'POST',
+                body: JSON.stringify({ message: document.getElementById('lockMessage').value }),
+              });
+            }
+            loadDevices();
+            if (selectedId === id) loadEvents();
+          } catch (err) { alert(err.message); }
+        };
+      });
+    }
+
+    async function loadEvents() {
+      const q = selectedId ? '?deviceId=' + selectedId : '';
+      const events = await api('/events' + q);
+      document.getElementById('events').innerHTML = events.map(e =>
+        `<li><strong>${e.type}</strong> ${e.message} <em>${new Date(e.at).toLocaleString('ru')}</em></li>`
+      ).join('') || '<li>Нет событий</li>';
+    }
+
+    function selectDevice(id) {
+      selectedId = id;
+      document.getElementById('panelTitle').textContent = 'Карточка устройства';
+      document.getElementById('actions').style.display = 'block';
+      loadDevices();
+      loadEvents();
+    }
+
+    document.getElementById('btnRefresh').onclick = () => { searchQuery = ''; document.getElementById('searchInput').value = ''; loadDevices(); };
+    document.getElementById('btnSearch').onclick = () => { searchQuery = document.getElementById('searchInput').value.trim(); loadDevices(); };
+    document.getElementById('searchInput').onkeydown = (e) => { if (e.key === 'Enter') { searchQuery = e.target.value.trim(); loadDevices(); } };
+
+    document.getElementById('deviceForm').onsubmit = async (e) => {
+      e.preventDefault();
+      const fd = new FormData(e.target);
+      const body = Object.fromEntries(fd.entries());
+      if (body.installmentTotal) body.installmentTotal = Number(body.installmentTotal);
+      try {
+        const d = await api('/devices', { method: 'POST', body: JSON.stringify(body) });
+        selectDevice(d.id);
+        e.target.reset();
+        searchQuery = '';
+        document.getElementById('searchInput').value = '';
+        loadDevices();
+        loadEvents();
+      } catch (err) { alert(err.message); }
+    };
+
+    document.getElementById('btnLock').onclick = async () => {
+      if (!selectedId) return;
+      try {
+        await api('/devices/' + selectedId + '/lock', {
+          method: 'POST',
+          body: JSON.stringify({ message: document.getElementById('lockMessage').value }),
+        });
+        loadDevices(); loadEvents();
+      } catch (err) { alert(err.message); }
+    };
+
+    document.getElementById('btnUnlock').onclick = async () => {
+      if (!selectedId) return;
+      try {
+        await api('/devices/' + selectedId + '/unlock', { method: 'POST', body: '{}' });
+        loadDevices(); loadEvents();
+      } catch (err) { alert(err.message); }
+    };
+
+    document.getElementById('btnPin').onclick = async () => {
+      if (!selectedId) return;
+      if (!confirm('Сбросить PIN через MDM?')) return;
+      try {
+        await api('/devices/' + selectedId + '/clear-passcode', { method: 'POST', body: '{}' });
+        loadEvents();
+        alert('Команда отправлена');
+      } catch (err) { alert(err.message); }
+    };
+
+    loadHealth();
+    loadDevices();
+    loadEvents();
+  </script>
+</body>
+</html>

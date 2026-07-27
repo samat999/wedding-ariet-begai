@@ -1,0 +1,152 @@
+{
+  "devices": [
+    {
+      "id": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "serial": "TEST123",
+      "imei": "356789012345678",
+      "udid": "",
+      "model": "iPhone 15",
+      "customerName": "Test Client",
+      "customerPhone": "+996700001002",
+      "contractId": "",
+      "installmentTotal": 150000,
+      "nextPaymentDate": "",
+      "status": "active",
+      "lockMessage": "",
+      "lastSeen": null,
+      "createdAt": "2026-07-27T07:23:32.662Z",
+      "updatedAt": "2026-07-27T07:54:15.790Z"
+    },
+    {
+      "id": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "serial": "123123",
+      "imei": "123123",
+      "udid": "123",
+      "model": "123123",
+      "customerName": "123123",
+      "customerPhone": "312",
+      "contractId": "123",
+      "installmentTotal": 123,
+      "nextPaymentDate": "",
+      "status": "locked",
+      "lockMessage": "Оплатите рассрочку. Обратитесь в магазин.",
+      "lastSeen": null,
+      "createdAt": "2026-07-27T07:50:44.037Z",
+      "updatedAt": "2026-07-27T07:54:16.544Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "27c0f463-5749-44f5-9af6-c53881aeaf6d",
+      "deviceId": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "type": "locked",
+      "message": "Оплатите рассрочку. Обратитесь в магазин.",
+      "meta": {},
+      "at": "2026-07-27T07:54:16.547Z"
+    },
+    {
+      "id": "f47ee58b-0568-493a-a2ed-31efd5acb807",
+      "deviceId": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:54:16.342Z"
+    },
+    {
+      "id": "058840bf-8fd8-4a71-9eca-5cc787c1e8d9",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:54:15.792Z"
+    },
+    {
+      "id": "bfac5a7c-160b-4a0a-bd9f-bc87dfdd9b64",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "locked",
+      "message": "Оплатите рассрочку. Обратитесь в магазин.",
+      "meta": {},
+      "at": "2026-07-27T07:54:15.503Z"
+    },
+    {
+      "id": "17e211f1-fb8a-40ec-bb84-6f99f17c4fea",
+      "deviceId": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "type": "locked",
+      "message": "Оплатите рассрочку. Обратитесь в магазин.",
+      "meta": {},
+      "at": "2026-07-27T07:54:15.096Z"
+    },
+    {
+      "id": "2c7e9a66-48be-480d-be46-548e6459f068",
+      "deviceId": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:54:14.653Z"
+    },
+    {
+      "id": "ab52ef3c-e961-4ce1-b29c-25a190aa62c5",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:54:14.129Z"
+    },
+    {
+      "id": "191b8e0a-2d49-4dcc-8ead-c5aa8aca4a23",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "locked",
+      "message": "Оплатите рассрочку. Обратитесь в магазин.",
+      "meta": {},
+      "at": "2026-07-27T07:54:13.439Z"
+    },
+    {
+      "id": "5b987dff-0a65-40b5-b8ec-8257880b5dac",
+      "deviceId": "8d016ea6-e710-4e3c-8ce8-20356ba1ae00",
+      "type": "locked",
+      "message": "Оплатите рассрочку. Обратитесь в магазин.",
+      "meta": {},
+      "at": "2026-07-27T07:50:45.776Z"
+    },
+    {
+      "id": "336a5e6f-5af1-433f-830d-c17e5ffc5997",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:50:30.881Z"
+    },
+    {
+      "id": "198fe6ce-4f9f-45e4-aaee-5f0d80bc5ad9",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:50:30.287Z"
+    },
+    {
+      "id": "cd251615-9ccd-4e5e-a29c-cf3e5e00a41c",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:50:27.815Z"
+    },
+    {
+      "id": "71ee817d-f7b7-4020-8485-5aa439b4fb5c",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "unlocked",
+      "message": "Разблокировано после оплаты",
+      "meta": {},
+      "at": "2026-07-27T07:23:52.725Z"
+    },
+    {
+      "id": "507860ca-a117-42de-adea-9dfae257afac",
+      "deviceId": "cb20c985-bfec-4bad-b125-8abef6ba30ef",
+      "type": "locked",
+      "message": "Oplatite 15000 som",
+      "meta": {},
+      "at": "2026-07-27T07:23:52.720Z"
+    }
+  ]
+}
